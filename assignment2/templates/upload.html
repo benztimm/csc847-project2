@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Website</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Upload</a>
+        <a href="{{ url_for('gallery') }}">Gallery</a>
+        <a href="{{ url_for('category',category='People') }}">People</a>
+        <a href="{{ url_for('category',category='Animals') }}">Animals</a>
+        <a href="{{ url_for('category',category='Flowers') }}">Flowers</a>
+        <a href="{{ url_for('category',category='Others') }}">Others</a>
+    </div>
+    <h1>Upload</h1>
+    <div class="image-single"> 
+        {% if status %}
+        <div class="invalid">{{status}}</div>
+        {% endif %}
+
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" class="image-details">
+        
+        <label for="name">Enter your name</label><br>
+        <input id="name" name="name" type="text"  class="textbox" required/><br>
+        
+        <label for="location">Enter your location</label><br>
+        <input id="location" name="location" type="text"  class="textbox" required/><br>
+        
+        
+        <label for="date ">Enter date</label><br>
+        <input id="date" name="date" type="date" required/><br>
+        <input type="file" name="file" required><br>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+</body>
+</html>

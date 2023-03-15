@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PhotoBook</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Upload</a>
+        <a href="{{ url_for('gallery') }}">Gallery</a>
+        <a href="{{ url_for('category',category='People') }}">People</a>
+        <a href="{{ url_for('category',category='Animals') }}">Animals</a>
+        <a href="{{ url_for('category',category='Flowers') }}">Flowers</a>
+        <a href="{{ url_for('category',category='Others') }}">Others</a>
+    </div>
+    <h1>{{header}}</h1>
+    <div class="image-grid">
+        {% for image in images %}
+        <div>
+        <a href="{{ url_for('edit', image_name=image['filename']) }}">
+            <img src="{{ url_for('serve_image', image_name=image['filename']) }}" alt="{{ image['filename'] }}" class="image">
+        </a>
+        <div class="image-details">
+            <p><strong>Author name: </strong> {{ image.fileauthor }}</p>
+            <p><strong>Capture Location: </strong> {{ image.filelocation }}</p>
+            <p><strong>Category: </strong> {{ image.property }}</p>
+            <p><strong>Capture Date: </strong> {{ image.filedate }}</p>
+            <p><strong>Uploaded Date: </strong> {{ image.created }}</p>
+
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

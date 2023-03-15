@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Upload</a>
+        <a href="{{ url_for('gallery') }}">Gallery</a>
+        <a href="{{ url_for('category',category='People') }}">People</a>
+        <a href="{{ url_for('category',category='Animals') }}">Animals</a>
+        <a href="{{ url_for('category',category='Flowers') }}">Flowers</a>
+        <a href="{{ url_for('category',category='Others') }}">Others</a>
+    </div>
+    <br>
+    <div class="image-single">
+        <div>
+            <a href="{{ url_for('serve_image', image_name=images) }}" target="_blank">
+                <img src="{{ url_for('serve_image', image_name=images) }}" alt="{{ metadata.filename }}" class="image">
+            </a>
+            <div class="image-details">
+                <p><strong>Author name: </strong> {{ metadata.fileauthor }}</p>
+                <p><strong>Capture Location: </strong> {{ metadata.filelocation }}</p>
+                <p><strong>Category: </strong> {{ metadata.property }}</p>
+                <p><strong>Capture Date: </strong> {{ metadata.filedate }}</p>
+                <p><strong>Uploaded Date: </strong> {{ metadata.created }}</p>
+
+            </div>
+            <div>
+                <h2>Edit</h2>
+                <form method="POST" action="{{ url_for('edit',image_name=metadata.filename) }} "
+                    enctype="multipart/form-data" class="edit">
+
+                    <label for="fileauthor">Enter new Author name</label><br>
+                    <input id="fileauthor" name="fileauthor" type="text" class="textbox" /><br><br>
+
+                    <label for="filelocation">Enter new location</label><br>
+                    <input id="filelocation" name="filelocation" type="text"class="textbox" /><br><br>
+
+                    <label for="filedate">Enter new Date</label><br>
+                    <input id="filedate" name="filedate" type="date" /><br><br>
+
+                    <label for="property">Enter new Category</label><br>
+                    <select id="property" name="property">
+                        <option value="" style="display:none;">Select a category</option>
+                        <option value="Animals">Animals</option>
+                        <option value="People">People</option>
+                        <option value="Flowers">Flowers</option>
+                        <option value="Others">Others</option>
+                    </select><br><br>
+
+                    <input type="file" name="file"><br>
+                    <button type="submit">Edit</button>
+                </form>
+                <br><br>
+                <form method="POST" action="{{ url_for('delete',image_name=metadata.filename,page=metadata.property) }}"
+                    enctype="multipart/form-data" class="edit">
+                    {{metadata.filename}}        
+                    <button type="submit" class='delete'>Delete</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
